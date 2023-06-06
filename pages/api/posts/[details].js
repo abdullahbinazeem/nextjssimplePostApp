@@ -1,11 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
 import prisma from "../../../prisma/client";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req, res) {
   if (req.method === "GET") {
     //Get Auth Users post
     try {

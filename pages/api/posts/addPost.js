@@ -1,13 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
 import prisma from "../../../prisma/client";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
@@ -16,7 +12,7 @@ export default async function handler(
         .json({ message: "Please sign in to make an account" });
     }
 
-    const title: string = req.body.title;
+    const title = req.body.title;
     //Get User
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email },
