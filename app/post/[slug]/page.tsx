@@ -7,19 +7,23 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 
-const fetchDetails = async (slug) => {
+type URL = {
+  params: {
+    slug: string;
+  };
+};
+
+const fetchDetails = async (slug: string) => {
   const response = await axios.get(`/api/posts/${slug}`);
   return response.data;
 };
 
-export default function PostDetail(url) {
-  const { data, isLoading } =
-    useQuery <
-    PostType >
-    {
-      queryKey: ["details-post"],
-      queryFn: () => fetchDetails(url.params.slug),
-    };
+export default function PostDetail(url: URL) {
+  const { data, isLoading } = useQuery<PostType>({
+    queryKey: ["details-post"],
+    queryFn: () => fetchDetails(url.params.slug),
+  });
+  const comment: any = data?.comment;
   if (isLoading) return "Loading...";
   console.log(data);
   return (
@@ -35,7 +39,7 @@ export default function PostDetail(url) {
             id={data.id}
           />
           <AddComment id={data?.id} />
-          {data?.comment?.map((comment) => (
+          {comment.map((comment: any) => (
             <div key={comment.id} className="my-6 bg-white p-8 rounded-md">
               <div className="flex items-center gap-4">
                 <Image
