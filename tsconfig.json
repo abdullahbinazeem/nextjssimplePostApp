@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "app/layout.jsx",
     "pages/api/posts/deletePost.js",
-    "app/post/[slug]/page.jsx",
+    "app/post/[slug]/page.tsx",
     "app/components/Post.jsx",
     "pages/api/posts/authPosts.js",
     "pages/api/posts/addPost.js",
